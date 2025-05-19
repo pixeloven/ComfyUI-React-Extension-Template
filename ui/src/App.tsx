@@ -502,8 +502,13 @@ function App() {
           <button 
             className="toast-btn"
             onClick={() => {
-              // Toast API Example - Alert Helper
-              window.app?.extensionManager.toast.addAlert("This is an alert message!");
+              // Toast API Example - Alert alternative using regular toast
+              window.app?.extensionManager.toast.add({
+                severity: "info",
+                summary: "Alert",
+                detail: "This is an alert message!",
+                life: 3000
+              });
             }}
             style={{
               padding: '8px 12px',

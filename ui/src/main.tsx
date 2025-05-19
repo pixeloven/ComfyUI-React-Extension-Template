@@ -126,7 +126,6 @@ async function initializeExtension(): Promise<void> {
           id: "react-example-tab",
           title: "React Example Tab",
           type: "custom",
-          icon: "pi pi-code",
           render: (el) => {
             // Create a container for our React content
             const container = document.createElement("div");
@@ -183,7 +182,7 @@ async function initializeExtension(): Promise<void> {
           id: "reactExample.runWorkflow",
           label: "Run Workflow from React Example",
           function: () => {
-            window.app?.queuePrompt();
+            window.app?.queuePrompt(0); // Pass 0 as default prompt number
           }
         },
         {
