@@ -100,49 +100,49 @@ async function initializeExtension(): Promise<void> {
 
     // Register extension with about page badges
     window.app.registerExtension({
-      name: "ReactExtensionExample",
+      name: 'ReactExtensionExample',
       // About Panel Badges API - Adds custom badges to the ComfyUI about page
       aboutPageBadges: [
         {
-          label: "Documentation",
-          url: "https://docs.comfy.org/custom-nodes/js/javascript_overview",
-          icon: "pi pi-file"
+          label: 'Documentation',
+          url: 'https://docs.comfy.org/custom-nodes/js/javascript_overview',
+          icon: 'pi pi-file'
         },
         {
-          label: "GitHub",
-          url: "https://github.com/Comfy-Org/ComfyUI-React-Extension-Template",
-          icon: "pi pi-github"
+          label: 'GitHub',
+          url: 'https://github.com/Comfy-Org/ComfyUI-React-Extension-Template',
+          icon: 'pi pi-github'
         },
         {
-          label: "Support",
-          url: "https://discord.gg/comfy-org",
-          icon: "pi pi-discord"
+          label: 'Support',
+          url: 'https://discord.gg/comfy-org',
+          icon: 'pi pi-discord'
         }
       ],
-      
+
       // Bottom Panel Tabs API - Adds custom tabs to the bottom panel
       bottomPanelTabs: [
         {
-          id: "react-example-tab",
-          title: "React Example Tab",
-          type: "custom",
+          id: 'react-example-tab',
+          title: 'React Example Tab',
+          type: 'custom',
           render: (el) => {
             // Create a container for our React content
-            const container = document.createElement("div");
-            container.id = "react-example-bottom-tab";
-            container.style.padding = "10px";
-            el.appendChild(container);
-            
+            const container = document.createElement('div')
+            container.id = 'react-example-bottom-tab'
+            container.style.padding = '10px'
+            el.appendChild(container)
+
             // Create a React component for the tab content
             function TabContent() {
-              const [count, setCount] = React.useState(0);
-              
+              const [count, setCount] = React.useState(0)
+
               return (
-                <div style={{ padding: "10px" }}>
+                <div style={{ padding: '10px' }}>
                   <h3>React Example Bottom Panel</h3>
                   <p>This is a demo of the Bottom Panel Tabs API.</p>
                   <p>Count: {count}</p>
-                  <button 
+                  <button
                     onClick={() => setCount(count + 1)}
                     style={{
                       padding: '8px 12px',
@@ -156,73 +156,79 @@ async function initializeExtension(): Promise<void> {
                     Increment
                   </button>
                 </div>
-              );
+              )
             }
-            
+
             // Mount the React component
             ReactDOM.createRoot(container).render(
               <React.StrictMode>
                 <TabContent />
               </React.StrictMode>
-            );
+            )
           }
         }
       ],
-      
+
       // Commands and Keybindings API - Register custom commands with keyboard shortcuts
       commands: [
         {
-          id: "reactExample.showInfo",
-          label: "Show React Example Info",
+          id: 'reactExample.showInfo',
+          label: 'Show React Example Info',
           function: () => {
-            alert("React Example Extension - This command was triggered by the Commands API");
+            alert(
+              'React Example Extension - This command was triggered by the Commands API'
+            )
           }
         },
         {
-          id: "reactExample.runWorkflow",
-          label: "Run Workflow from React Example",
+          id: 'reactExample.runWorkflow',
+          label: 'Run Workflow from React Example',
           function: () => {
-            window.app?.queuePrompt(0); // Pass 0 as default prompt number
+            void window.app?.queuePrompt(0) // Pass 0 as default prompt number
           }
         },
         {
-          id: "reactExample.clearWorkflow",
-          label: "Clear Workflow from React Example",
+          id: 'reactExample.clearWorkflow',
+          label: 'Clear Workflow from React Example',
           function: () => {
-            if (confirm("Clear the current workflow? This cannot be undone.")) {
-              window.app?.graph.clear();
+            if (confirm('Clear the current workflow? This cannot be undone.')) {
+              window.app?.graph.clear()
             }
           }
         }
       ],
-      
+
       // Associate keybindings with the commands
       keybindings: [
         {
-          combo: { key: "i", ctrl: true, alt: true },
-          commandId: "reactExample.showInfo"
+          combo: { key: 'i', ctrl: true, alt: true },
+          commandId: 'reactExample.showInfo'
         },
         {
-          combo: { key: "r", ctrl: true, alt: true },
-          commandId: "reactExample.runWorkflow"
+          combo: { key: 'r', ctrl: true, alt: true },
+          commandId: 'reactExample.runWorkflow'
         },
         {
-          combo: { key: "Delete", ctrl: true, alt: true },
-          commandId: "reactExample.clearWorkflow"
+          combo: { key: 'Delete', ctrl: true, alt: true },
+          commandId: 'reactExample.clearWorkflow'
         }
       ],
-      
+
       // Topbar Menu API - Add commands to the top menu bar
       menuCommands: [
         {
           // Add commands to the Extensions menu
-          path: ["Extensions", "React Example"],
-          commands: ["reactExample.showInfo", "reactExample.runWorkflow", "reactExample.clearWorkflow"]
+          path: ['Extensions', 'React Example'],
+          commands: [
+            'reactExample.showInfo',
+            'reactExample.runWorkflow',
+            'reactExample.clearWorkflow'
+          ]
         },
         {
           // Create a submenu under Extensions > React Example
-          path: ["Extensions", "React Example", "Advanced"],
-          commands: ["reactExample.showInfo"]
+          path: ['Extensions', 'React Example', 'Advanced'],
+          commands: ['reactExample.showInfo']
         }
       ]
     })

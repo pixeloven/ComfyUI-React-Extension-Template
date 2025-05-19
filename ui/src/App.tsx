@@ -346,23 +346,29 @@ function App() {
         </div>
       </div>
 
-      <div className="dashboard-section">
+      <div className="dashboard-section" style={{ marginTop: '20px' }}>
         <h3>API Examples</h3>
-        <div className="api-examples">
+        <div
+          className="api-examples"
+          style={{ display: 'flex', flexWrap: 'wrap', gap: '10px' }}
+        >
           <h4>Dialog API</h4>
-          <button 
+          <button
             className="dialog-btn"
             onClick={() => {
               // Dialog API Example - Prompt
-              window.app?.extensionManager.dialog.prompt({
-                title: "Dialog API Demo",
-                message: "This is a prompt dialog example. Please enter something:",
-                defaultValue: "Dialog API is great!"
-              }).then(result => {
-                if (result !== null) {
-                  alert(`You entered: ${result}`);
-                }
-              });
+              void window.app?.extensionManager.dialog
+                .prompt({
+                  title: 'Dialog API Demo',
+                  message:
+                    'This is a prompt dialog example. Please enter something:',
+                  defaultValue: 'Dialog API is great!'
+                })
+                .then((result) => {
+                  if (result !== null) {
+                    alert(`You entered: ${result}`)
+                  }
+                })
             }}
             style={{
               padding: '8px 12px',
@@ -376,18 +382,20 @@ function App() {
           >
             Show Prompt Dialog
           </button>
-          
-          <button 
+
+          <button
             className="dialog-btn"
             onClick={() => {
               // Dialog API Example - Confirm
-              window.app?.extensionManager.dialog.confirm({
-                title: "Confirm Action",
-                message: "This is a confirmation dialog example.",
-                type: "default"
-              }).then(result => {
-                alert(result ? "You confirmed!" : "You cancelled!");
-              });
+              void window.app?.extensionManager.dialog
+                .confirm({
+                  title: 'Confirm Action',
+                  message: 'This is a confirmation dialog example.',
+                  type: 'default'
+                })
+                .then((result) => {
+                  alert(result ? 'You confirmed!' : 'You cancelled!')
+                })
             }}
             style={{
               padding: '8px 12px',
@@ -401,18 +409,18 @@ function App() {
           >
             Show Confirm Dialog
           </button>
-          
+
           <h4>Toast API</h4>
-          <button 
+          <button
             className="toast-btn"
             onClick={() => {
               // Toast API Example - Info
               window.app?.extensionManager.toast.add({
-                severity: "info",
-                summary: "Information",
-                detail: "This is an info toast message",
+                severity: 'info',
+                summary: 'Information',
+                detail: 'This is an info toast message',
                 life: 3000
-              });
+              })
             }}
             style={{
               padding: '8px 12px',
@@ -426,17 +434,17 @@ function App() {
           >
             Show Info Toast
           </button>
-          
-          <button 
+
+          <button
             className="toast-btn"
             onClick={() => {
               // Toast API Example - Success
               window.app?.extensionManager.toast.add({
-                severity: "success",
-                summary: "Success",
-                detail: "Operation completed successfully!",
+                severity: 'success',
+                summary: 'Success',
+                detail: 'Operation completed successfully!',
                 life: 3000
-              });
+              })
             }}
             style={{
               padding: '8px 12px',
@@ -450,17 +458,17 @@ function App() {
           >
             Show Success Toast
           </button>
-          
-          <button 
+
+          <button
             className="toast-btn"
             onClick={() => {
               // Toast API Example - Warning
               window.app?.extensionManager.toast.add({
-                severity: "warn",
-                summary: "Warning",
-                detail: "This action may cause issues!",
+                severity: 'warn',
+                summary: 'Warning',
+                detail: 'This action may cause issues!',
                 life: 5000
-              });
+              })
             }}
             style={{
               padding: '8px 12px',
@@ -474,17 +482,17 @@ function App() {
           >
             Show Warning Toast
           </button>
-          
-          <button 
+
+          <button
             className="toast-btn"
             onClick={() => {
               // Toast API Example - Error
               window.app?.extensionManager.toast.add({
-                severity: "error",
-                summary: "Error",
-                detail: "Something went wrong!",
+                severity: 'error',
+                summary: 'Error',
+                detail: 'Something went wrong!',
                 life: 5000
-              });
+              })
             }}
             style={{
               padding: '8px 12px',
@@ -498,17 +506,17 @@ function App() {
           >
             Show Error Toast
           </button>
-          
-          <button 
+
+          <button
             className="toast-btn"
             onClick={() => {
               // Toast API Example - Alert alternative using regular toast
               window.app?.extensionManager.toast.add({
-                severity: "info",
-                summary: "Alert",
-                detail: "This is an alert message!",
+                severity: 'info',
+                summary: 'Alert',
+                detail: 'This is an alert message!',
                 life: 3000
-              });
+              })
             }}
             style={{
               padding: '8px 12px',
