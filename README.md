@@ -1,6 +1,12 @@
 # ComfyUI React Extension Template
 
+<p align="center">
+  <img src="docs/demo.gif" alt="ComfyUI React Extension Template Demo" width="800"/>
+</p>
+
 A minimal template for creating React/TypeScript frontend extensions for ComfyUI, with complete boilerplate setup.
+
+📚 **[ComfyUI JavaScript Developer Documentation](https://docs.comfy.org/custom-nodes/js/javascript_overview)** - Learn how to use ComfyUI's powerful extension APIs.
 
 ## Features
 
@@ -53,6 +59,24 @@ npm install
 # Start development mode (watches for changes)
 npm run watch
 ```
+
+### Available ComfyUI Extension APIs
+
+This template provides access to ComfyUI's powerful JavaScript APIs through the official type definitions. You can use these APIs to build rich extensions:
+
+- **Sidebar Tabs**: Create custom sidebar panels like this template demonstrates
+- **Bottom Bar Panels**: Add panels to the bottom of the UI
+- **Top Menu Items**: Add custom entries to the top menu
+- **Context Menus**: Create custom context menus for the graph
+- **Settings**: Add settings to the ComfyUI settings panel
+- **Toasts**: Display notification messages
+- **Commands**: Create and register custom commands
+- **Hotkeys/Keybindings**: Register custom keyboard shortcuts
+- **About Panel Badges**: Add badges to the about panel
+- **App Events**: Listen to and respond to app events
+- **Graph Manipulation**: Programmatically manipulate the workflow graph
+
+For comprehensive documentation on all available APIs, see the [ComfyUI JavaScript Developer Documentation](https://docs.comfy.org/custom-nodes/js/javascript_overview).
 
 ### File Structure
 
@@ -138,10 +162,16 @@ The workflow configuration is already set up in `.github/workflows/publish.yml` 
 
 ## Resources
 
-- [ComfyUI Registry Documentation](https://docs.comfy.org/registry/publishing)
-- [ComfyUI API Documentation](https://docs.comfy.org)
+- [ComfyUI JS Extension Documentation](https://docs.comfy.org/custom-nodes/js/javascript_overview) - Official documentation for ComfyUI JavaScript Extensions
+- [ComfyUI Registry Documentation](https://docs.comfy.org/registry/publishing) - Learn how to publish your extension
+- [ComfyUI Frontend Repository](https://github.com/Comfy-Org/ComfyUI-Frontend) - The main ComfyUI frontend codebase
+- [Official ComfyUI Frontend Types](https://www.npmjs.com/package/@comfyorg/comfyui-frontend-types) - TypeScript definitions for ComfyUI
 - [TypeScript Documentation](https://www.typescriptlang.org/docs/)
 - [React Documentation](https://react.dev/reference/react)
+
+## Contributing
+
+Contributions are welcome! Feel free to open issues or submit pull requests to improve this template.
 
 ## License
 
