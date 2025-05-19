@@ -1,13 +1,14 @@
-# ComfyUI React Extension Example
+# ComfyUI React Extension Template
 
-A minimal example of integrating a React/TypeScript application as a ComfyUI extension, complete with internationalization support.
+A minimal template for creating React/TypeScript frontend extensions for ComfyUI, with complete boilerplate setup.
 
 ## Features
 
-- **React & TypeScript Integration**: Demonstrates how to create a modern UI within ComfyUI
-- **Interactive Dashboard**: Real-time monitoring of nodes with category-based filtering
-- **Internationalization**: Multi-language support for English and Chinese
+- **React & TypeScript Integration**: Ready-to-use setup for creating modern UI components within ComfyUI
+- **Internationalization Framework**: Built-in i18n support with English and Chinese examples
+- **ComfyUI API Integration**: Properly typed access to ComfyUI's internal API
 - **Full TypeScript Support**: Type-safe code using ComfyUI's official type definitions
+- **Auto-Reload Development**: Watch mode for seamless development experience
 
 ## Installation
 
@@ -16,10 +17,10 @@ A minimal example of integrating a React/TypeScript application as a ComfyUI ext
 cd ComfyUI/custom_nodes
 
 # Clone the repository
-git clone https://github.com/yourusername/ComfyUI_example_frontend_extension.git
+git clone https://github.com/Comfy-Org/ComfyUI-React-Extension-Template.git
 
 # Build the React application
-cd ComfyUI_example_frontend_extension/ui
+cd ComfyUI-React-Extension-Template/ui
 npm install
 npm run build
 
@@ -28,11 +29,15 @@ npm run build
 
 ## Usage
 
-After installation:
+This template includes a simple example extension that displays workflow node statistics. After installation:
 
 1. Look for the "React Example" tab in the ComfyUI sidebar
-2. Click to open the interactive dashboard
-3. Monitor your workflow's node statistics in real-time
+2. Click to open the example UI
+
+When developing your own extension, you can:
+1. Replace the example UI in App.tsx with your own components
+2. Update the tab title and icon in main.tsx
+3. Customize the extension's appearance and behavior
 
 ## Development
 
@@ -52,7 +57,7 @@ npm run watch
 ### File Structure
 
 ```
-ComfyUI_example_frontend_extension/
+ComfyUI-React-Extension-Template/
 ├── __init__.py                 # Python entry point for ComfyUI integration
 ├── pyproject.toml              # Project metadata for ComfyUI Registry
 ├── locales/                    # Internationalization files
@@ -62,12 +67,15 @@ ComfyUI_example_frontend_extension/
 │       └── main.json           # Chinese translations
 └── ui/                         # React application
     ├── src/
-    │   ├── App.tsx             # Main React component
+    │   ├── App.tsx             # Main React component with example UI
+    │   ├── App.css             # Styles for the example UI
+    │   ├── index.css           # Global styles and theme variables
     │   ├── main.tsx            # Entry point for React app
     │   └── utils/
     │       └── i18n.ts         # Internationalization setup
     ├── package.json            # npm dependencies
-    └── tsconfig.json           # TypeScript configuration
+    ├── tsconfig.json           # TypeScript configuration
+    └── vite.config.js          # Build configuration
 ```
 
 ### TypeScript Support
@@ -96,13 +104,13 @@ npm install -D @comfyorg/comfyui-frontend-types
 2. Verify your pyproject.toml has the correct metadata:
    ```toml
    [project]
-   name = "comfyui_example_frontend_extension"
-   description = "A minimal example of integrating a React application with TypeScript as a ComfyUI extension."
+   name = "your_extension_name"  # Use a unique name for your extension
+   description = "Your extension description here."
    version = "0.1.0"  # Increment this with each update
 
    [tool.comfy]
-   PublisherId = "your_publisher_id"
-   DisplayName = "ComfyUI React Extension Example"
+   PublisherId = "your_publisher_id"  # Your Registry publisher ID
+   DisplayName = "Your Extension Display Name"
    ```
 
 3. Publish your extension:
