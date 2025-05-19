@@ -332,7 +332,6 @@ function App() {
 
       <div className="footer">
         <p>{t('app.footer.clickToHighlight')}</p>
-        <p>Current language: {t('app.title')}</p>
       </div>
     </div>
   );
