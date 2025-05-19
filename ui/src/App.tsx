@@ -346,6 +346,180 @@ function App() {
         </div>
       </div>
 
+      <div className="dashboard-section">
+        <h3>API Examples</h3>
+        <div className="api-examples">
+          <h4>Dialog API</h4>
+          <button 
+            className="dialog-btn"
+            onClick={() => {
+              // Dialog API Example - Prompt
+              window.app?.extensionManager.dialog.prompt({
+                title: "Dialog API Demo",
+                message: "This is a prompt dialog example. Please enter something:",
+                defaultValue: "Dialog API is great!"
+              }).then(result => {
+                if (result !== null) {
+                  alert(`You entered: ${result}`);
+                }
+              });
+            }}
+            style={{
+              padding: '8px 12px',
+              backgroundColor: '#2196F3',
+              color: 'white',
+              border: 'none',
+              borderRadius: '4px',
+              cursor: 'pointer',
+              margin: '5px'
+            }}
+          >
+            Show Prompt Dialog
+          </button>
+          
+          <button 
+            className="dialog-btn"
+            onClick={() => {
+              // Dialog API Example - Confirm
+              window.app?.extensionManager.dialog.confirm({
+                title: "Confirm Action",
+                message: "This is a confirmation dialog example.",
+                type: "default"
+              }).then(result => {
+                alert(result ? "You confirmed!" : "You cancelled!");
+              });
+            }}
+            style={{
+              padding: '8px 12px',
+              backgroundColor: '#FF9800',
+              color: 'white',
+              border: 'none',
+              borderRadius: '4px',
+              cursor: 'pointer',
+              margin: '5px'
+            }}
+          >
+            Show Confirm Dialog
+          </button>
+          
+          <h4>Toast API</h4>
+          <button 
+            className="toast-btn"
+            onClick={() => {
+              // Toast API Example - Info
+              window.app?.extensionManager.toast.add({
+                severity: "info",
+                summary: "Information",
+                detail: "This is an info toast message",
+                life: 3000
+              });
+            }}
+            style={{
+              padding: '8px 12px',
+              backgroundColor: '#2196F3',
+              color: 'white',
+              border: 'none',
+              borderRadius: '4px',
+              cursor: 'pointer',
+              margin: '5px'
+            }}
+          >
+            Show Info Toast
+          </button>
+          
+          <button 
+            className="toast-btn"
+            onClick={() => {
+              // Toast API Example - Success
+              window.app?.extensionManager.toast.add({
+                severity: "success",
+                summary: "Success",
+                detail: "Operation completed successfully!",
+                life: 3000
+              });
+            }}
+            style={{
+              padding: '8px 12px',
+              backgroundColor: '#4CAF50',
+              color: 'white',
+              border: 'none',
+              borderRadius: '4px',
+              cursor: 'pointer',
+              margin: '5px'
+            }}
+          >
+            Show Success Toast
+          </button>
+          
+          <button 
+            className="toast-btn"
+            onClick={() => {
+              // Toast API Example - Warning
+              window.app?.extensionManager.toast.add({
+                severity: "warn",
+                summary: "Warning",
+                detail: "This action may cause issues!",
+                life: 5000
+              });
+            }}
+            style={{
+              padding: '8px 12px',
+              backgroundColor: '#FF9800',
+              color: 'white',
+              border: 'none',
+              borderRadius: '4px',
+              cursor: 'pointer',
+              margin: '5px'
+            }}
+          >
+            Show Warning Toast
+          </button>
+          
+          <button 
+            className="toast-btn"
+            onClick={() => {
+              // Toast API Example - Error
+              window.app?.extensionManager.toast.add({
+                severity: "error",
+                summary: "Error",
+                detail: "Something went wrong!",
+                life: 5000
+              });
+            }}
+            style={{
+              padding: '8px 12px',
+              backgroundColor: '#F44336',
+              color: 'white',
+              border: 'none',
+              borderRadius: '4px',
+              cursor: 'pointer',
+              margin: '5px'
+            }}
+          >
+            Show Error Toast
+          </button>
+          
+          <button 
+            className="toast-btn"
+            onClick={() => {
+              // Toast API Example - Alert Helper
+              window.app?.extensionManager.toast.addAlert("This is an alert message!");
+            }}
+            style={{
+              padding: '8px 12px',
+              backgroundColor: '#673AB7',
+              color: 'white',
+              border: 'none',
+              borderRadius: '4px',
+              cursor: 'pointer',
+              margin: '5px'
+            }}
+          >
+            Show Alert Toast
+          </button>
+        </div>
+      </div>
+
       <div className="footer">
         <p>{t('app.footer.clickToHighlight')}</p>
       </div>
