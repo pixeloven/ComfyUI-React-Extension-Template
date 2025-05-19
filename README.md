@@ -98,11 +98,15 @@ ComfyUI-React-Extension-Template/
     │   ├── App.css             # Styles for the example UI
     │   ├── index.css           # Global styles and theme variables
     │   ├── main.tsx            # Entry point for React app
+    │   ├── __tests__/          # Unit tests for components
+    │   │   └── dummy.test.tsx  # Example test
     │   └── utils/
     │       └── i18n.ts         # Internationalization setup
+    ├── jest.config.js          # Jest testing configuration
+    ├── jest.setup.js           # Testing environment setup
     ├── package.json            # npm dependencies
     ├── tsconfig.json           # TypeScript configuration
-    └── vite.config.js          # Build configuration
+    └── vite.config.ts          # Build configuration
 ```
 
 ### TypeScript Support
@@ -160,14 +164,35 @@ The workflow configuration is already set up in `.github/workflows/publish.yml` 
 - The `pyproject.toml` file is modified
 - The changes are pushed to the `main` branch
 
+## Unit Testing
+
+This template includes a basic setup for unit testing with Jest and React Testing Library:
+
+```bash
+# Run tests
+npm test
+
+# Run tests in watch mode during development
+npm run test:watch
+```
+
+Example tests can be found in the `src/__tests__` directory. The setup includes:
+
+- Jest for running tests
+- React Testing Library for testing components
+- Mock implementation of the ComfyUI window.app object
+
 ## Resources
 
 - [ComfyUI JS Extension Documentation](https://docs.comfy.org/custom-nodes/js/javascript_overview) - Official documentation for ComfyUI JavaScript Extensions
 - [ComfyUI Registry Documentation](https://docs.comfy.org/registry/publishing) - Learn how to publish your extension
 - [ComfyUI Frontend Repository](https://github.com/Comfy-Org/ComfyUI-Frontend) - The main ComfyUI frontend codebase
 - [Official ComfyUI Frontend Types](https://www.npmjs.com/package/@comfyorg/comfyui-frontend-types) - TypeScript definitions for ComfyUI
+- [React Extension Guide](REACT_EXTENSION_GUIDE.md) - Detailed guide for creating React extensions
 - [TypeScript Documentation](https://www.typescriptlang.org/docs/)
 - [React Documentation](https://react.dev/reference/react)
+- [Jest Documentation](https://jestjs.io/docs/getting-started)
+- [React Testing Library](https://testing-library.com/docs/react-testing-library/intro/)
 
 ## Contributing
 
