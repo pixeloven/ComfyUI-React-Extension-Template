@@ -1,0 +1,10 @@
+{
+  "react-drawing-board": {
+    "title": "React Drawing Board",
+    "pen": "Pen",
+    "clear-canvas": "Clear Canvas",
+    "brush-size": "Brush Size",
+    "save-image": "Save Image",
+    "brush-color": "Brush Color"
+  }
+}

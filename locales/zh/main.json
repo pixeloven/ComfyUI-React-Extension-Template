@@ -1,0 +1,10 @@
+{
+  "react-drawing-board": {
+    "title": "React 绘图板",
+    "pen": "画笔",
+    "clear-canvas": "清除画布",
+    "brush-size": "画笔大小",
+    "save-image": "保存图像",
+    "brush-color": "画笔颜色"
+  }
+}

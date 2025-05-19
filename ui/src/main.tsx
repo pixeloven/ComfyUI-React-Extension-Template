@@ -1,0 +1,107 @@
+import React, { Suspense } from 'react';
+import ReactDOM from 'react-dom/client';
+import './index.css';
+import { ComfyApp } from "@comfyorg/comfyui-frontend-types";
+import { useTranslation } from 'react-i18next';
+import './utils/i18n'; // Import i18n configuration
+
+// Declare global ComfyUI objects
+declare global {
+  interface Window {
+    app?: ComfyApp;
+  }
+}
+
+// Lazy load the App component for better performance
+const App = React.lazy(() => import('./App'));
+
+// Function to wait for document and app to be ready
+function waitForInit(): Promise<void> {
+  return new Promise((resolve) => {
+    // Check if document is ready
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', checkApp);
+    } else {
+      checkApp();
+    }
+    
+    // Check if app is available
+    function checkApp() {
+      if (window.app) {
+        resolve();
+      } else {
+        // Poll for app availability
+        const interval = setInterval(() => {
+          if (window.app) {
+            console.log('App initialized');
+            clearInterval(interval);
+            resolve();
+          }
+        }, 50);
+        
+        // Set timeout to avoid infinite polling
+        setTimeout(() => {
+          clearInterval(interval);
+          console.error('Timeout waiting for app to initialize');
+          resolve(); // Continue anyway to avoid blocking
+        }, 5000);
+      }
+    }
+  });
+}
+
+// Initialize the extension once everything is ready
+async function initializeExtension(): Promise<void> {
+  try {
+    // Wait for document and ComfyUI app
+    await waitForInit();
+    console.log('App:', window.app);
+    
+    if (!window.app) {
+      console.error('ComfyUI app not available');
+      return;
+    }
+    
+    // Create a function component with i18n for translation
+    function SidebarWrapper() {
+      // Using useTranslation hook to initialize i18n context
+      useTranslation();
+      return <App />;
+    }
+    
+    // Register the sidebar tab using ComfyUI's extension API
+    const sidebarTab = {
+      id: 'comfyui-react-example',
+      icon: 'pi pi-code', // Using PrimeVue icon
+      title: 'React Example',
+      tooltip: 'React Example Extension',
+      type: 'custom' as const,
+      render: (element: HTMLElement) => {
+        console.log('Rendering React Example Extension');
+        // Create a container for our React app
+        const container = document.createElement('div');
+        container.id = 'comfyui-react-example-root';
+        container.style.height = '100%';
+        element.appendChild(container);
+        
+        // Mount the React app to the container
+        ReactDOM.createRoot(container).render(
+          <React.StrictMode>
+            <Suspense fallback={<div>Loading...</div>}>
+              <SidebarWrapper />
+            </Suspense>
+          </React.StrictMode>
+        );
+      }
+    };
+    
+    window.app.extensionManager.registerSidebarTab(sidebarTab);
+    
+    console.log('React Example Extension initialized successfully');
+  } catch (error) {
+    console.error('Failed to initialize React Example Extension:', error);
+  }
+}
+
+// Start initialization
+initializeExtension();
