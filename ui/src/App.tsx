@@ -1,60 +1,61 @@
-import { useState, useEffect, useMemo } from "react";
-import "./App.css";
-import { ComfyApp } from "@comfyorg/comfyui-frontend-types";
-import { useTranslation } from "react-i18next";
+import { ComfyApp } from '@comfyorg/comfyui-frontend-types'
+import { useEffect, useMemo, useState } from 'react'
+import { useTranslation } from 'react-i18next'
+
+import './App.css'
 
 // Type definitions for the global ComfyUI objects
 declare global {
   interface Window {
-    app?: ComfyApp;
+    app?: ComfyApp
   }
 }
 
 // Interface for our processed node data
 interface ProcessedNode {
-  id: string | number;
-  title: string;
-  type: string;
-  category: string;
-  inputs: number;
-  outputs: number;
-  pos: [number, number];
+  id: string | number
+  title: string
+  type: string
+  category: string
+  inputs: number
+  outputs: number
+  pos: [number, number]
 }
 
 // Type for category colors
-type CategoryColors = Record<string, string>;
+type CategoryColors = Record<string, string>
 
 const CATEGORY_COLORS: CategoryColors = {
-  loaders: "#7e57c2",
-  conditioning: "#26a69a",
-  sampling: "#ef5350",
-  latent: "#66bb6a",
-  image: "#42a5f5",
-  mask: "#ff9800",
-  "conditioning/clip": "#26a69a",
-  "image/postprocessing": "#ec407a",
-  advanced: "#5c6bc0",
-  _default: "#78909c",
-};
+  loaders: '#7e57c2',
+  conditioning: '#26a69a',
+  sampling: '#ef5350',
+  latent: '#66bb6a',
+  image: '#42a5f5',
+  mask: '#ff9800',
+  'conditioning/clip': '#26a69a',
+  'image/postprocessing': '#ec407a',
+  advanced: '#5c6bc0',
+  _default: '#78909c'
+}
 
 interface NodeStatsChartProps {
-  nodeCounts: Record<string, number>;
-  totalNodes: number;
+  nodeCounts: Record<string, number>
+  totalNodes: number
 }
 
 function NodeStatsChart({ nodeCounts, totalNodes }: NodeStatsChartProps) {
   // Only show the top 8 categories for the chart
   const topCategories = Object.entries(nodeCounts)
     .sort((a, b) => b[1] - a[1])
-    .slice(0, 8);
+    .slice(0, 8)
 
   const chartData = topCategories.map(([category, count]) => {
     return {
       category,
       count,
-      percentage: Math.round((count / totalNodes) * 100),
-    };
-  });
+      percentage: Math.round((count / totalNodes) * 100)
+    }
+  })
 
   return (
     <div className="node-stats-chart">
@@ -65,37 +66,37 @@ function NodeStatsChart({ nodeCounts, totalNodes }: NodeStatsChartProps) {
             style={{
               height: `${item.percentage * 2}px`,
               backgroundColor:
-                CATEGORY_COLORS[item.category] || CATEGORY_COLORS._default,
+                CATEGORY_COLORS[item.category] || CATEGORY_COLORS._default
             }}
           />
           <div className="chart-label">{item.category}</div>
         </div>
       ))}
     </div>
-  );
+  )
 }
 
 interface CategoryFilterProps {
-  categories: string[];
-  selectedCategory: string;
-  onSelectCategory: (category: string) => void;
+  categories: string[]
+  selectedCategory: string
+  onSelectCategory: (category: string) => void
 }
 
-function CategoryFilter({ 
-  categories, 
-  selectedCategory, 
-  onSelectCategory 
+function CategoryFilter({
+  categories,
+  selectedCategory,
+  onSelectCategory
 }: CategoryFilterProps) {
   // Using useTranslation hook to initialize i18n context
-  useTranslation();
-  
+  useTranslation()
+
   return (
     <div className="category-filter">
       <button
         className={
-          selectedCategory === "all" ? "filter-button active" : "filter-button"
+          selectedCategory === 'all' ? 'filter-button active' : 'filter-button'
         }
-        onClick={() => onSelectCategory("all")}
+        onClick={() => onSelectCategory('all')}
       >
         All
       </button>
@@ -104,54 +105,60 @@ function CategoryFilter({
           key={category}
           className={
             selectedCategory === category
-              ? "filter-button active"
-              : "filter-button"
+              ? 'filter-button active'
+              : 'filter-button'
           }
           onClick={() => onSelectCategory(category)}
           style={{
             borderBottom: `3px solid ${
               CATEGORY_COLORS[category] || CATEGORY_COLORS._default
-            }`,
+            }`
           }}
         >
           {category}
         </button>
       ))}
     </div>
-  );
+  )
 }
 
 function App() {
-  const { t } = useTranslation();
-  const [nodes, setNodes] = useState<ProcessedNode[]>([]);
-  const [selectedCategory, setSelectedCategory] = useState<string>("all");
-  const [isQueueRunning, setIsQueueRunning] = useState<boolean>(false);
-  const [highlightedNode, setHighlightedNode] = useState<string | number | null>(null);
+  const { t } = useTranslation()
+  const [nodes, setNodes] = useState<ProcessedNode[]>([])
+  const [selectedCategory, setSelectedCategory] = useState<string>('all')
+  const [isQueueRunning, setIsQueueRunning] = useState<boolean>(false)
+  const [highlightedNode, setHighlightedNode] = useState<
+    string | number | null
+  >(null)
 
   // Get nodes from ComfyUI graph and organize them
   useEffect(() => {
-    if (!window.app?.graph) return;
+    if (!window.app?.graph) return
 
     // Initial node collection
-    collectNodes();
+    collectNodes()
 
     // Function to collect nodes from the graph
     function collectNodes() {
-      const graphNodes = window.app?.graph._nodes;
-      if (!graphNodes) return;
+      const graphNodes = window.app?.graph._nodes
+      if (!graphNodes) return
 
-      const currentNodes: ProcessedNode[] = [];
-      
+      const currentNodes: ProcessedNode[] = []
+
       for (const node of graphNodes) {
         // Extract category from constructorData if available
-        let category = "";
-        if (node.constructor && "nodeData" in node.constructor) {
-          const nodeData = node.constructor.nodeData;
-          if (nodeData && typeof nodeData === 'object' && "category" in nodeData) {
-            category = nodeData.category as string;
+        let category = ''
+        if (node.constructor && 'nodeData' in node.constructor) {
+          const nodeData = node.constructor.nodeData
+          if (
+            nodeData &&
+            typeof nodeData === 'object' &&
+            'category' in nodeData
+          ) {
+            category = nodeData.category as string
           }
         }
-        
+
         currentNodes.push({
           id: node.id,
           title: node.title,
@@ -159,107 +166,113 @@ function App() {
           category: category,
           inputs: node.inputs?.length || 0,
           outputs: node.outputs?.length || 0,
-          pos: [...node.pos] as [number, number], // Clone position array
-        });
+          pos: [...node.pos] as [number, number] // Clone position array
+        })
       }
 
-      setNodes(currentNodes);
+      setNodes(currentNodes)
     }
 
     // Listen for graph changes using the API (not graph directly)
     const handleGraphChanged = () => {
-      collectNodes();
-    };
+      collectNodes()
+    }
 
-    window.app?.api.addEventListener("graphChanged", handleGraphChanged);
+    window.app?.api.addEventListener('graphChanged', handleGraphChanged)
 
     return () => {
-      window.app?.api.removeEventListener("graphChanged", handleGraphChanged);
-    };
-  }, []);
+      window.app?.api.removeEventListener('graphChanged', handleGraphChanged)
+    }
+  }, [])
 
   // Monitor queue status
   useEffect(() => {
-    if (!window.app?.api) return;
+    if (!window.app?.api) return
 
-    const handleQueueStart = () => setIsQueueRunning(true);
-    const handleQueueComplete = () => setIsQueueRunning(false);
+    const handleQueueStart = () => setIsQueueRunning(true)
+    const handleQueueComplete = () => setIsQueueRunning(false)
 
     // Using the Event API with properly typed events
-    window.app.api.addEventListener("execution_start", handleQueueStart);
-    
+    window.app.api.addEventListener('execution_start', handleQueueStart)
+
     // Since 'execution_complete' is not directly in the types, we add a compatibility approach
-    type ApiEventName = Parameters<typeof window.app.api.addEventListener>[0];
-    window.app.api.addEventListener("execution_complete" as ApiEventName, handleQueueComplete);
+    type ApiEventName = Parameters<typeof window.app.api.addEventListener>[0]
+    window.app.api.addEventListener(
+      'execution_complete' as ApiEventName,
+      handleQueueComplete
+    )
 
     return () => {
-      window.app?.api.removeEventListener("execution_start", handleQueueStart);
-      window.app?.api.removeEventListener("execution_complete" as ApiEventName, handleQueueComplete);
-    };
-  }, []);
+      window.app?.api.removeEventListener('execution_start', handleQueueStart)
+      window.app?.api.removeEventListener(
+        'execution_complete' as ApiEventName,
+        handleQueueComplete
+      )
+    }
+  }, [])
 
   // Handle node highlighting
   useEffect(() => {
-    if (!highlightedNode || !window.app?.graph) return;
+    if (!highlightedNode || !window.app?.graph) return
 
     // Find the node in the graph
-    const graphNodes = window.app.graph._nodes;
-    const node = graphNodes.find(n => n.id === highlightedNode);
-    if (!node) return;
+    const graphNodes = window.app.graph._nodes
+    const node = graphNodes.find((n) => n.id === highlightedNode)
+    if (!node) return
 
     // Center camera on node with smooth animation
-    window.app.canvas.centerOnNode(node);
+    window.app.canvas.centerOnNode(node)
 
     // Highlight the node
-    const originalColor = node.color;
-    node.color = "#ff5722";
-    window.app.graph.setDirtyCanvas(true, false);
+    const originalColor = node.color
+    node.color = '#ff5722'
+    window.app.graph.setDirtyCanvas(true, false)
 
     // Reset highlight after a delay
     const timeout = setTimeout(() => {
       if (window.app?.graph._nodes.includes(node)) {
-        node.color = originalColor;
-        window.app.graph.setDirtyCanvas(true, false);
+        node.color = originalColor
+        window.app.graph.setDirtyCanvas(true, false)
       }
-    }, 2000);
+    }, 2000)
 
     return () => {
-      clearTimeout(timeout);
+      clearTimeout(timeout)
       // Restore original color if component unmounts
       if (window.app?.graph._nodes.includes(node)) {
-        node.color = originalColor;
-        window.app.graph.setDirtyCanvas(true, false);
+        node.color = originalColor
+        window.app.graph.setDirtyCanvas(true, false)
       }
-    };
-  }, [highlightedNode]);
+    }
+  }, [highlightedNode])
 
   // Calculate statistics from nodes
   const { filteredNodes, categories, nodeCounts, totalNodes } = useMemo(() => {
     // Get filtered nodes based on selected category
     const filtered =
-      selectedCategory === "all"
+      selectedCategory === 'all'
         ? nodes
-        : nodes.filter((node) => node.category === selectedCategory);
+        : nodes.filter((node) => node.category === selectedCategory)
 
     // Get unique categories
     const uniqueCategories = [
-      ...new Set(nodes.map((node) => node.category)),
-    ].sort();
+      ...new Set(nodes.map((node) => node.category))
+    ].sort()
 
     // Count nodes by category
     const counts = nodes.reduce((acc: Record<string, number>, node) => {
-      const category = node.category;
-      acc[category] = (acc[category] || 0) + 1;
-      return acc;
-    }, {});
+      const category = node.category
+      acc[category] = (acc[category] || 0) + 1
+      return acc
+    }, {})
 
     return {
       filteredNodes: filtered,
       categories: uniqueCategories,
       nodeCounts: counts,
-      totalNodes: nodes.length,
-    };
-  }, [nodes, selectedCategory]);
+      totalNodes: nodes.length
+    }
+  }, [nodes, selectedCategory])
 
   return (
     <div className="react-example-container">
@@ -275,7 +288,7 @@ function App() {
           <div className="stat-label">{t('app.nodeStats.uniqueNodeTypes')}</div>
         </div>
         <div className="stat-card">
-          <div className="stat-value">{isQueueRunning ? "Active" : "Idle"}</div>
+          <div className="stat-value">{isQueueRunning ? 'Active' : 'Idle'}</div>
           <div className="stat-label">Queue Status</div>
         </div>
       </div>
@@ -309,14 +322,17 @@ function App() {
                   className="node-badge"
                   style={{
                     backgroundColor:
-                      CATEGORY_COLORS[node.category] ||
-                      CATEGORY_COLORS._default,
+                      CATEGORY_COLORS[node.category] || CATEGORY_COLORS._default
                   }}
                 ></div>
                 <div className="node-title">{node.title}</div>
                 <div className="node-meta">
-                  <span>{t('app.nodeList.inputs')}: {node.inputs}</span>
-                  <span>{t('app.nodeList.outputs')}: {node.outputs}</span>
+                  <span>
+                    {t('app.nodeList.inputs')}: {node.inputs}
+                  </span>
+                  <span>
+                    {t('app.nodeList.outputs')}: {node.outputs}
+                  </span>
                 </div>
               </div>
             ))
@@ -324,7 +340,7 @@ function App() {
             <div className="empty-state">
               {totalNodes === 0
                 ? t('app.noNodes')
-                : "No nodes match the selected filter"}
+                : 'No nodes match the selected filter'}
             </div>
           )}
         </div>
@@ -334,7 +350,7 @@ function App() {
         <p>{t('app.footer.clickToHighlight')}</p>
       </div>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
