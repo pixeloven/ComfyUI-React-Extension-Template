@@ -1,6 +1,6 @@
 # ComfyUI React Extension Template
 
-![react-example-demo](https://github.com/user-attachments/assets/4e24f97e-176e-450c-a383-dd65e5029579)
+![react-example-demo](https://github.com/Comfy-Org/ComfyUI-React-Extension-Template/blob/assets-branch/docs/demo.gif)
 
 ![demo pic](https://github.com/Comfy-Org/ComfyUI-React-Extension-Template/blob/assets-branch/react-example-demo.png)
 
