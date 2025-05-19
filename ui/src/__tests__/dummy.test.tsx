@@ -1,5 +1,6 @@
-import React from 'react';
-import { render, screen } from '@testing-library/react';
+/** @jsxImportSource react */
+import { render } from '@testing-library/react';
+import '@testing-library/jest-dom';
 
 // A simple component for testing
 function DummyComponent({ text }: { text: string }) {
@@ -8,9 +9,9 @@ function DummyComponent({ text }: { text: string }) {
 
 describe('Dummy Component', () => {
   it('renders with provided text', () => {
-    render(<DummyComponent text="Hello ComfyUI!" />);
+    const { getByTestId } = render(<DummyComponent text="Hello ComfyUI!" />);
     
-    const element = screen.getByTestId('dummy-component');
+    const element = getByTestId('dummy-component');
     expect(element).toBeInTheDocument();
     expect(element).toHaveTextContent('Hello ComfyUI!');
   });
