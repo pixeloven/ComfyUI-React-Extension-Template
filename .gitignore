@@ -1,6 +1,7 @@
 node_modules/
 __pycache__/
-dist/
+# don't ignore dist otherwise the transpiled JS won't be shipped to people who download
+# dist/ 
 .DS_Store
 .env
 .env.local
