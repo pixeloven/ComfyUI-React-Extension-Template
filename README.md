@@ -1,5 +1,8 @@
 # ComfyUI React Extension Template
 
+![react-example-demo](https://github.com/user-attachments/assets/4e24f97e-176e-450c-a383-dd65e5029579)
+
+![demo pic](https://github.com/Comfy-Org/ComfyUI-React-Extension-Template/blob/assets-branch/react-example-demo.png)
 
 A minimal template for creating React/TypeScript frontend extensions for ComfyUI, with complete boilerplate setup.
 
