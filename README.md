@@ -58,6 +58,9 @@ npm run watch
 
 ```
 ComfyUI-React-Extension-Template/
+├── .github/                    # GitHub configurations
+│   └── workflows/
+│       └── publish.yml         # Automatic publishing workflow
 ├── __init__.py                 # Python entry point for ComfyUI integration
 ├── pyproject.toml              # Project metadata for ComfyUI Registry
 ├── locales/                    # Internationalization files
@@ -122,32 +125,16 @@ npm install -D @comfyorg/comfyui-frontend-types
 
 ### Automatic Publishing with GitHub Actions
 
-You can set up GitHub Actions to automatically publish when you update the version in pyproject.toml:
+This template includes a GitHub Actions workflow that automatically publishes to the ComfyUI Registry whenever you update the version in pyproject.toml:
 
-1. Create a GitHub secret called `REGISTRY_ACCESS_TOKEN` with your API key
-2. Create a `.github/workflows/publish.yml` file with the following content:
+1. Go to your repository's Settings > Secrets and variables > Actions
+2. Create a new repository secret called `REGISTRY_ACCESS_TOKEN` with your API key
+3. Commit and push an update to pyproject.toml (e.g., increment the version number)
+4. The GitHub Action will automatically run and publish your extension
 
-```yaml
-name: Publish to ComfyUI Registry
-
-on:
-  push:
-    paths:
-      - 'pyproject.toml'
-    branches:
-      - main
-
-jobs:
-  publish:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-        with:
-          node-version: '18'
-      - run: npm install -g @comfy-org/cli
-      - run: comfy node publish --token ${{ secrets.REGISTRY_ACCESS_TOKEN }}
-```
+The workflow configuration is already set up in `.github/workflows/publish.yml` and will trigger when:
+- The `pyproject.toml` file is modified
+- The changes are pushed to the `main` branch
 
 ## Resources
 
