@@ -74,9 +74,6 @@ void i18n
     // Always enable debug mode to see what's happening
     debug: true,
 
-    // Default language
-    lng: 'en',
-
     // Fallback language
     fallbackLng: 'en',
 
@@ -91,6 +88,14 @@ void i18n
     saveMissing: true,
     missingKeyHandler: (lng, ns, key) => {
       console.log(`Missing translation: [${lng}] ${ns}:${key}`)
+    },
+
+    // Language detection configuration
+    detection: {
+      // Order of detection methods
+      order: ['navigator', 'htmlTag', 'path', 'subdomain'],
+      // Don't cache detected language
+      caches: []
     },
 
     // Backend configuration
