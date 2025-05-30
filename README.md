@@ -87,25 +87,31 @@ ComfyUI-React-Extension-Template/
 │       └── publish.yml         # Automatic publishing workflow
 ├── __init__.py                 # Python entry point for ComfyUI integration
 ├── pyproject.toml              # Project metadata for ComfyUI Registry
-├── locales/                    # Internationalization files
-│   ├── en/
-│   │   └── main.json           # English translations
-│   └── zh/
-│       └── main.json           # Chinese translations
+├── dist/                       # Built extension files (generated)
 └── ui/                         # React application
+    ├── public/
+    │   └── locales/            # Internationalization files
+    │       ├── en/
+    │       │   └── main.json   # English translations
+    │       └── zh/
+    │           └── main.json   # Chinese translations
     ├── src/
     │   ├── App.tsx             # Main React component with example UI
     │   ├── App.css             # Styles for the example UI
     │   ├── index.css           # Global styles and theme variables
     │   ├── main.tsx            # Entry point for React app
+    │   ├── vite-env.d.ts       # Vite environment types
+    │   ├── setupTests.ts       # Testing environment setup
     │   ├── __tests__/          # Unit tests for components
     │   │   └── dummy.test.tsx  # Example test
     │   └── utils/
     │       └── i18n.ts         # Internationalization setup
+    ├── eslint.config.js        # ESLint configuration
     ├── jest.config.js          # Jest testing configuration
-    ├── jest.setup.js           # Testing environment setup
+    ├── jest.setup.js           # Jest setup file
     ├── package.json            # npm dependencies
     ├── tsconfig.json           # TypeScript configuration
+    ├── tsconfig.node.json      # TypeScript configuration for Node
     └── vite.config.ts          # Build configuration
 ```
 
