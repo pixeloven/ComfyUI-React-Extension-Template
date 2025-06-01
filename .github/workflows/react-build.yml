@@ -5,8 +5,6 @@ on:
     branches: [ "main" ]
     paths:
       - 'pyproject.toml'
-  pull_request:
-    branches: [ "main" ]
 
 jobs:
   build:
@@ -36,7 +34,6 @@ jobs:
         npm run build
 
     - name: Publish Custom Node
-      if: github.event_name == 'push'
       uses: Comfy-Org/publish-node-action@main
       with:
         personal_access_token: ${{ secrets.REGISTRY_ACCESS_TOKEN }}

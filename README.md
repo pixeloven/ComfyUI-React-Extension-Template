@@ -182,13 +182,12 @@ This template includes a GitHub Actions workflow that automatically publishes to
 
 The workflow configuration is set up in `.github/workflows/react-build.yml` and will trigger when:
 - The `pyproject.toml` file is modified and pushed to the `main` branch
-- Pull requests are created against the `main` branch (build only, no publish)
 
 The workflow automatically:
 1. Sets up Node.js environment
 2. Installs dependencies (`npm install`)
 3. Builds the React extension (`npm run build`)
-4. Publishes the extension to the ComfyUI Registry (only when `pyproject.toml` changes)
+4. Publishes the extension to the ComfyUI Registry
 
 ## Unit Testing
 
