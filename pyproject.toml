@@ -13,3 +13,4 @@ Repository = "https://github.com/Comfy-Org/ComfyUI-React-Extension-Template"
 PublisherId = "your_publisher_id" # Change this to your actual publisher ID
 DisplayName = "ComfyUI React Extension Template"
 Icon = ""
+includes = ["dist/"]

@@ -18,6 +18,18 @@ A minimal template for creating React/TypeScript frontend extensions for ComfyUI
 
 ## Installation
 
+### From ComfyUI Registry (Recommended)
+
+The easiest way to install this extension is through the ComfyUI Manager:
+
+1. Open ComfyUI and go to the Manager
+2. Search for "React Extension Template"
+3. Click Install
+
+### Manual Installation
+
+If you want to install directly from GitHub for development purposes:
+
 ```bash
 # Go to your ComfyUI custom_nodes directory
 cd ComfyUI/custom_nodes
@@ -32,6 +44,8 @@ npm run build
 
 # Restart ComfyUI
 ```
+
+⚠️ **Important**: When installing manually from GitHub, you **must** run `npm run build` in the `ui/` directory before the extension will work. The extension requires the compiled React code in the `dist/` folder to function properly in ComfyUI.
 
 ## Usage
 
@@ -84,7 +98,7 @@ For comprehensive documentation on all available APIs, see the [ComfyUI JavaScri
 ComfyUI-React-Extension-Template/
 ├── .github/                    # GitHub configurations
 │   └── workflows/
-│       └── publish.yml         # Automatic publishing workflow
+│       └── react-build.yml     # Automatic build and publishing workflow
 ├── __init__.py                 # Python entry point for ComfyUI integration
 ├── pyproject.toml              # Project metadata for ComfyUI Registry
 ├── dist/                       # Built extension files (generated)
@@ -148,6 +162,7 @@ npm install -D @comfyorg/comfyui-frontend-types
    [tool.comfy]
    PublisherId = "your_publisher_id"  # Your Registry publisher ID
    DisplayName = "Your Extension Display Name"
+   includes = ["dist/"]  # Include built React code (normally ignored by .gitignore)
    ```
 
 3. Publish your extension:
@@ -166,9 +181,14 @@ This template includes a GitHub Actions workflow that automatically publishes to
 3. Commit and push an update to pyproject.toml (e.g., increment the version number)
 4. The GitHub Action will automatically run and publish your extension
 
-The workflow configuration is already set up in `.github/workflows/publish.yml` and will trigger when:
-- The `pyproject.toml` file is modified
-- The changes are pushed to the `main` branch
+The workflow configuration is set up in `.github/workflows/react-build.yml` and will trigger when:
+- The `pyproject.toml` file is modified and pushed to the `main` branch
+
+The workflow automatically:
+1. Sets up Node.js environment
+2. Installs dependencies (`npm install`)
+3. Builds the React extension (`npm run build`)
+4. Publishes the extension to the ComfyUI Registry
 
 ## Unit Testing
 
