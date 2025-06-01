@@ -162,6 +162,7 @@ npm install -D @comfyorg/comfyui-frontend-types
    [tool.comfy]
    PublisherId = "your_publisher_id"  # Your Registry publisher ID
    DisplayName = "Your Extension Display Name"
+   includes = ["dist/"]  # Include built React code (normally ignored by .gitignore)
    ```
 
 3. Publish your extension:
