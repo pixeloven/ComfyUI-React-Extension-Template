@@ -3,6 +3,7 @@ import server
 from aiohttp import web
 import folder_paths
 import nodes
+from comfy_config import config_parser
 
 NODE_CLASS_MAPPINGS = {}
 __all__ = ["NODE_CLASS_MAPPINGS"]
@@ -35,6 +36,10 @@ if os.path.exists(dist_path):
         print("WARNING: Locale directory not found!")
     
     # Also register the standard ComfyUI extension web directory
-    nodes.EXTENSION_WEB_DIRS["ComfyUI-example-frontend-extension"] = os.path.join(workspace_path, "dist")
+    project_config = config_parser.extract_node_configuration(workspace_path)
+
+    print(f"project name read from pyproject.toml: {project_config.project.name}")
+
+    nodes.EXTENSION_WEB_DIRS[project_config.project.name] = os.path.join(workspace_path, "dist")
 else:
     print("ComfyUI Example React Extension: Web directory not found")
