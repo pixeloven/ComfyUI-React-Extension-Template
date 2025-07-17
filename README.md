@@ -61,7 +61,13 @@ When developing your own extension, you can:
 
 ## Development
 
-### Setup Development Environment
+### Development Modes
+
+This template supports two development modes:
+
+#### 1. Standalone Development (Recommended for UI Development)
+
+Run the UI independently without ComfyUI for faster development:
 
 ```bash
 # Go to the UI directory
@@ -70,9 +76,40 @@ cd ui
 # Install dependencies
 npm install
 
-# Start development mode (watches for changes)
+# Start standalone development server
+npm run dev
+```
+
+This will start a development server at `http://localhost:5173/` with:
+
+- **Mock ComfyUI APIs**: The app uses mock implementations of ComfyUI's APIs for development
+- **Hot Reload**: Changes to your code will automatically reload in the browser
+- **TypeScript Support**: Full TypeScript compilation and type checking
+- **Sample Data**: Mock workflow nodes are provided for testing the UI
+
+#### 2. ComfyUI Extension Development
+
+For development while working on the extension within ComfyUI:
+
+```bash
+# Go to the UI directory
+cd ui
+
+# Install dependencies
+npm install
+
+# Start watch mode (auto-rebuilds on changes)
 npm run watch
 ```
+
+This will automatically rebuild the extension whenever you make changes, and you can see the updates in ComfyUI after refreshing.
+
+### Development vs Production
+
+- **Development**: Uses `main-standalone.tsx` and mock APIs for standalone development
+- **Production**: Uses `main.tsx` and real ComfyUI APIs when loaded as an extension
+
+The Vite configuration automatically switches between these modes based on the build environment.
 
 ### Available ComfyUI Extension APIs
 
@@ -113,13 +150,17 @@ ComfyUI-React-Extension-Template/
     │   ├── App.tsx             # Main React component with example UI
     │   ├── App.css             # Styles for the example UI
     │   ├── index.css           # Global styles and theme variables
-    │   ├── main.tsx            # Entry point for React app
+    │   ├── main.tsx            # Entry point for ComfyUI extension mode
+    │   ├── main-standalone.tsx # Entry point for standalone development mode
     │   ├── vite-env.d.ts       # Vite environment types
     │   ├── setupTests.ts       # Testing environment setup
     │   ├── __tests__/          # Unit tests for components
     │   │   └── dummy.test.tsx  # Example test
+    │   ├── mocks/
+    │   │   └── comfyui-mock.js # Mock ComfyUI APIs for development
     │   └── utils/
     │       └── i18n.ts         # Internationalization setup
+    ├── index.html              # HTML template for standalone development
     ├── eslint.config.js        # ESLint configuration
     ├── jest.config.js          # Jest testing configuration
     ├── jest.setup.js           # Jest setup file
@@ -189,6 +230,28 @@ The workflow automatically:
 2. Installs dependencies (`npm install`)
 3. Builds the React extension (`npm run build`)
 4. Publishes the extension to the ComfyUI Registry
+
+## Troubleshooting
+
+### Common Issues
+
+**Q: The UI shows a 404 error when running `npm run dev`**
+A: Make sure you're running the command from the `ui/` directory, not the project root. The package.json is located in the `ui/` folder.
+
+**Q: The extension doesn't appear in ComfyUI after installation**
+A: Ensure you've run `npm run build` in the `ui/` directory and restarted ComfyUI. The extension requires compiled files in the `dist/` folder.
+
+**Q: TypeScript errors about missing ComfyUI types**
+A: Install the ComfyUI frontend types: `npm install -D @comfyorg/comfyui-frontend-types`
+
+**Q: Mock data doesn't appear in standalone development**
+A: Check the browser console for any JavaScript errors. The mock APIs should automatically load sample workflow nodes.
+
+### Development Workflow
+
+1. **For UI Development**: Use `npm run dev` for standalone development with hot reload
+2. **For Extension Testing**: Use `npm run watch` and test within ComfyUI
+3. **For Production**: Use `npm run build` to create the final extension files
 
 ## Unit Testing
 

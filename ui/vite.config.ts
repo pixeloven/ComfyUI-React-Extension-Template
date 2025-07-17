@@ -15,10 +15,12 @@ const rewriteComfyImports = ({ isDev }: RewriteComfyImportsOptions) => {
         return;
       }
       if (source === "/scripts/app.js") {
-        return "http://127.0.0.1:8188/scripts/app.js";
+        // For development, we'll provide a mock implementation
+        return path.resolve(__dirname, 'src/mocks/comfyui-mock.js');
       }
       if (source === "/scripts/api.js") {
-        return "http://127.0.0.1:8188/scripts/api.js";
+        // For development, we'll provide a mock implementation
+        return path.resolve(__dirname, 'src/mocks/comfyui-mock.js');
       }
       return null;
     },
@@ -36,7 +38,7 @@ export default defineConfig(({ mode }) => ({
       // Don't bundle ComfyUI scripts - they will be loaded from the ComfyUI server
       external: ['/scripts/app.js', '/scripts/api.js'],
       input: {
-        main: path.resolve(__dirname, 'src/main.tsx'),
+        main: path.resolve(__dirname, mode === "development" ? 'src/main-standalone.tsx' : 'src/main.tsx'),
       },
       output: {
         // Output to the dist/example_ext directory
