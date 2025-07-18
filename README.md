@@ -65,6 +65,8 @@ When developing your own extension, you can:
 
 The easiest way to develop this extension is using Docker, which mounts the project directly into ComfyUI's custom_nodes directory:
 
+> **💡 Docker Setup**: This project's Docker configuration is based on [ComfyUI-Docker](https://github.com/pixeloven/ComfyUI-Docker). For instructions on building these images locally and contributing to this project, see the [ComfyUI-Docker documentation](https://github.com/pixeloven/ComfyUI-Docker/blob/main/docs/index.md).
+
 #### Prerequisites
 - Docker and Docker Compose installed
 - Node.js and npm installed (for building the React app)
