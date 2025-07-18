@@ -61,7 +61,67 @@ When developing your own extension, you can:
 
 ## Development
 
-### Setup Development Environment
+### Docker Development (Recommended)
+
+The easiest way to develop this extension is using Docker, which mounts the project directly into ComfyUI's custom_nodes directory:
+
+#### Prerequisites
+- Docker and Docker Compose installed
+- Node.js and npm installed (for building the React app)
+
+#### Quick Start
+
+1. **Start ComfyUI with Docker:**
+   ```bash
+   # For CPU-only development
+   docker-compose up comfy-cpu
+   
+   # For GPU development (requires NVIDIA Docker)
+   docker-compose up comfy-nvidia
+   ```
+
+2. **Build the React application:**
+   ```bash
+   # In a new terminal, go to the UI directory
+   cd ui
+   
+   # Install dependencies (first time only)
+   npm install
+   
+   # Build the React app
+   npm run build
+   ```
+
+3. **Access ComfyUI:**
+   - Open your browser to `http://localhost:8188`
+   - Look for the "React Example" tab in the sidebar
+
+#### Development Workflow
+
+1. **For one-time builds:**
+   ```bash
+   cd ui
+   npm run build
+   ```
+   Then refresh the ComfyUI web interface to see changes.
+
+2. **For continuous development:**
+   ```bash
+   cd ui
+   npm run watch
+   ```
+   This will automatically rebuild the app when you make changes. Refresh the ComfyUI web interface to see updates.
+
+#### How It Works
+
+- The `docker-compose.yml` mounts the current project directory to `/data/config/comfy/custom_nodes/ComfyUI-React-Extension-Template` inside the container
+- When you run `npm run build`, it creates a `dist/` folder with the compiled React code
+- ComfyUI automatically detects and loads the extension from this mounted directory
+- Refreshing the ComfyUI web interface loads the updated extension
+
+### Local Development (Alternative)
+
+If you prefer to develop without Docker:
 
 ```bash
 # Go to the UI directory
@@ -223,7 +283,3 @@ Example tests can be found in the `src/__tests__` directory. The setup includes:
 ## Contributing
 
 Contributions are welcome! Feel free to open issues or submit pull requests to improve this template.
-
-## License
-
-MIT

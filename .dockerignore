@@ -1,0 +1,64 @@
+# Git
+.git
+.gitignore
+
+# Docker
+Dockerfile*
+docker-compose*.yml
+.dockerignore
+
+# Node.js development files
+ui/node_modules
+ui/.vite
+ui/coverage
+
+# Python
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+.Python
+env
+pip-log.txt
+pip-delete-this-directory.txt
+.tox
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.log
+.git
+.mypy_cache
+.pytest_cache
+.hypothesis
+
+# IDE
+.vscode
+.idea
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Documentation
+README.md
+LICENSE
+*.md
+
+# Development files
+DEVELOPMENT.md
+dev.sh
+
+# Note: dist/ directory is NOT excluded to support production builds
+# where the pre-built dist/ is mounted as a volume
+# start-dev.sh is included for development Dockerfiles 
