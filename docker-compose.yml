@@ -1,8 +1,8 @@
 services:
-  comfyui:
+  comfy-cpu:
     image: ghcr.io/pixeloven/comfyui-docker/comfy-cpu:latest
     user: ${PUID:-1000}:${PGID:-1000}
-    container_name: comfy-cpu-dev
+    container_name: react-extension-dev-cpu
     environment:
       - PUID=${PUID:-1000}
       - PGID=${PGID:-1000}
@@ -12,80 +12,57 @@ services:
       - "${COMFY_PORT:-8188}:${COMFY_PORT:-8188}"
     volumes:
       # Mount models and other ComfyUI directories
-      - comfyui_data:/data/config/comfy/models
-      - comfyui_output:/data/config/comfy/output
+      - comfyui_data:/data
+      - comfyui_output:/output
       # Mount ComfyUI custom_nodes directory
       - ./:/data/config/comfy/custom_nodes/ComfyUI-React-Extension-Template
-    command: >
-      bash -c "
-        # Install Node.js for React development
-        curl -fsSL https://deb.nodesource.com/setup_18.x | bash -
-        apt-get update && apt-get install -y nodejs
-        
-        # Install extension dependencies and build
-        cd /workspace/ComfyUI-React-Extension-Template/ui
-        npm install
-        npm run build
-        
-        # Start ComfyUI
-        cd /workspace/ComfyUI
-        python main.py --listen 0.0.0.0 --port 8188
-      "
+    stop_signal: SIGKILL
+    tty: true
 
-  comfyui-nvidia:
+  comfy-nvidia:
     image: ghcr.io/pixeloven/comfyui-docker/comfy-nvidia:latest
-    container_name: comfyui-dev-nvidia
+    user: ${PUID:-1000}:${PGID:-1000}
+    container_name: comfyui-react-extension-dev-nvidia
     environment:
       - PUID=${PUID:-1000}
       - PGID=${PGID:-1000}
       - COMFY_PORT=${COMFY_PORT:-8188}
-      - CLI_ARGS=--cpu
+      - CLI_ARGS=
     ports:
       - "${COMFY_PORT:-8188}:${COMFY_PORT:-8188}"
     volumes:
       # Mount models and other ComfyUI directories
-      - comfyui_data:/data/config/comfy/models
-      - comfyui_output:/data/config/comfy/output
+      - comfyui_data:/data
+      - comfyui_output:/output
       # Mount ComfyUI custom_nodes directory
       - ./:/data/config/comfy/custom_nodes/ComfyUI-React-Extension-Template
-    command: >
-      bash -c "
-        # Install Node.js for React development
-        curl -fsSL https://deb.nodesource.com/setup_18.x | bash -
-        apt-get update && apt-get install -y nodejs
-        
-        # Install extension dependencies and build
-        cd /workspace/ComfyUI-React-Extension-Template/ui
-        npm install
-        npm run build
-        
-        # Start ComfyUI
-        cd /workspace/ComfyUI
-        python main.py --listen 0.0.0.0 --port 8188
-      "
+    stop_signal: SIGKILL
+    tty: true
+    runtime: nvidia
 
-  # Development server for React hot reload
-  react-dev:
-    image: node:18-alpine
-    container_name: react-extension-dev
-    profiles:
-      - comfy-cpu
-      - comfy-nvidia
-    ports:
-      - "5173:5173"
-    volumes:
-      - ./ui:/app
-      - /app/node_modules
-    working_dir: /app
-    command: >
-      sh -c "
-        npm install &&
-        npm run dev -- --host 0.0.0.0 --port 5173
-      "
-    environment:
-      - NODE_ENV=development
-    depends_on:
-      - comfyui
+  # Can the UI run in dev mode outside of the comfy container? (how can we expose the comfyui API)
+  # We can still mount the extension into comfy container so the backend has access to the extension
+  # But we need to expose the comfyui API to the UI
+
+  # # Development server for React hot reload
+  # react-dev:
+  #   image: node:18-alpine
+  #   container_name: react-extension-dev
+  #   ports:
+  #     - "5173:5173"
+  #   volumes:
+  #     - ./ui:/app
+  #     - /app/node_modules
+  #   working_dir: /app
+  #   command: >
+  #     sh -c "
+  #       npm install &&
+  #       npm run dev -- --host 0.0.0.0 --port 5173
+  #     "
+  #   environment:
+  #     - NODE_ENV=development
+  #   depends_on:
+  #     - comfyui
 
 volumes:
   comfyui_data:
