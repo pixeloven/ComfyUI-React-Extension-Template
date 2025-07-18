@@ -2,7 +2,7 @@ services:
   comfy-cpu:
     image: ghcr.io/pixeloven/comfyui-docker/comfy-cpu:latest
     user: ${PUID:-1000}:${PGID:-1000}
-    container_name: react-extension-dev-cpu
+    container_name: comfy-cpu-react-extension-prod
     environment:
       - PUID=${PUID:-1000}
       - PGID=${PGID:-1000}
@@ -22,7 +22,7 @@ services:
   comfy-nvidia:
     image: ghcr.io/pixeloven/comfyui-docker/comfy-nvidia:latest
     user: ${PUID:-1000}:${PGID:-1000}
-    container_name: comfyui-react-extension-dev-nvidia
+    container_name: comfy-nvidia-react-extension-prod
     environment:
       - PUID=${PUID:-1000}
       - PGID=${PGID:-1000}
@@ -39,30 +39,6 @@ services:
     stop_signal: SIGKILL
     tty: true
     runtime: nvidia
-
-  # Can the UI run in dev mode outside of the comfy container? (how can we expose the comfyui API)
-  # We can still mount the extension into comfy container so the backend has access to the extension
-  # But we need to expose the comfyui API to the UI
-
-  # # Development server for React hot reload
-  # react-dev:
-  #   image: node:18-alpine
-  #   container_name: react-extension-dev
-  #   ports:
-  #     - "5173:5173"
-  #   volumes:
-  #     - ./ui:/app
-  #     - /app/node_modules
-  #   working_dir: /app
-  #   command: >
-  #     sh -c "
-  #       npm install &&
-  #       npm run dev -- --host 0.0.0.0 --port 5173
-  #     "
-  #   environment:
-  #     - NODE_ENV=development
-  #   depends_on:
-  #     - comfyui
 
 volumes:
   comfyui_data:
