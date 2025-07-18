@@ -61,37 +61,7 @@ When developing your own extension, you can:
 
 ## Development
 
-### Docker-Based Development Environment (Recommended)
-
-For the best development experience, we recommend using the Docker-based development environment that leverages [ComfyUI-Docker](https://github.com/pixeloven/ComfyUI-Docker):
-
-```bash
-# Start with CPU-only mode (smaller, faster startup)
-docker-compose --profile comfy-cpu up -d
-
-# Or start with GPU support (requires NVIDIA Docker)
-docker-compose --profile comfy-nvidia up -d
-
-# View logs
-docker-compose logs -f
-```
-
-This provides:
-- **ComfyUI Container**: Running at http://localhost:8188
-- **React Dev Server**: Hot-reload at http://localhost:5173
-- **Persistent Volumes**: For models, outputs, and user data
-- **Consistent Environment**: Same setup across all developers
-- **Flexible Deployment**: CPU-only or GPU-accelerated modes
-
-See [README-DEVELOPMENT.md](README-DEVELOPMENT.md) for complete development guide.
-
-### Local Development Modes
-
-If you prefer local development without Docker:
-
-#### 1. Standalone Development (Recommended for UI Development)
-
-Run the UI independently without ComfyUI for faster development:
+### Setup Development Environment
 
 ```bash
 # Go to the UI directory
@@ -253,7 +223,3 @@ Example tests can be found in the `src/__tests__` directory. The setup includes:
 ## Contributing
 
 Contributions are welcome! Feel free to open issues or submit pull requests to improve this template.
-
-## License
-
-MIT
