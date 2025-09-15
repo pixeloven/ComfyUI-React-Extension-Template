@@ -1,6 +1,6 @@
 services:
   comfy-cpu:
-    image: ghcr.io/pixeloven/comfyui-docker/comfy-cpu:latest
+    image: ghcr.io/pixeloven/comfyui-docker/core:cpu-latest
     user: ${PUID:-1000}:${PGID:-1000}
     container_name: comfy-cpu-react-extension-prod
     environment:
@@ -20,7 +20,7 @@ services:
     tty: true
 
   comfy-nvidia:
-    image: ghcr.io/pixeloven/comfyui-docker/comfy-nvidia:latest
+    image: ghcr.io/pixeloven/comfyui-docker/core:cuda-latest
     user: ${PUID:-1000}:${PGID:-1000}
     container_name: comfy-nvidia-react-extension-prod
     environment:
