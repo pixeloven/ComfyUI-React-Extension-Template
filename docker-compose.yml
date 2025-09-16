@@ -15,7 +15,7 @@ services:
       - comfyui_data:/data
       - comfyui_output:/output
       # Mount ComfyUI custom_nodes directory
-      - ./:/data/config/comfy/custom_nodes/ComfyUI-React-Extension-Template
+      - ./:/data/comfy/custom_nodes/ComfyUI-React-Extension-Template
     stop_signal: SIGKILL
     tty: true
 
@@ -35,7 +35,7 @@ services:
       - comfyui_data:/data
       - comfyui_output:/output
       # Mount ComfyUI custom_nodes directory
-      - ./:/data/config/comfy/custom_nodes/ComfyUI-React-Extension-Template
+      - ./:/data/comfy/custom_nodes/ComfyUI-React-Extension-Template
     stop_signal: SIGKILL
     tty: true
     runtime: nvidia
