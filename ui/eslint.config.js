@@ -6,9 +6,7 @@ import tseslint from 'typescript-eslint'
 
 export default [
   {
-    files: ['src/**/*.{js,mjs,cjs,ts,tsx}']
-  },
-  {
+    files: ['src/**/*.{js,mjs,cjs,ts,tsx}', 'public/**/*.{js,ts}'],
     languageOptions: {
       globals: {
         ...globals.browser
@@ -21,10 +19,20 @@ export default [
       }
     }
   },
+  {
+    files: ['*.config.{js,ts}', 'jest.setup.js'],
+    languageOptions: {
+      globals: {
+        ...globals.node,
+        ...globals.jest
+      }
+    }
+  },
   pluginJs.configs.recommended,
   ...tseslint.configs.recommended,
   eslintPluginPrettierRecommended,
   {
+    files: ['src/**/*.{js,mjs,cjs,ts,tsx}', 'public/**/*.{js,ts}'],
     plugins: {
       'unused-imports': unusedImports
     },

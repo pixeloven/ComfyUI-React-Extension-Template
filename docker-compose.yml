@@ -13,7 +13,6 @@ services:
     volumes:
       # Mount models and other ComfyUI directories
       - comfyui_data:/data
-      - comfyui_output:/output
       # Mount ComfyUI custom_nodes directory
       - ./:/data/comfy/custom_nodes/ComfyUI-React-Extension-Template
     stop_signal: SIGKILL
@@ -33,7 +32,6 @@ services:
     volumes:
       # Mount models and other ComfyUI directories
       - comfyui_data:/data
-      - comfyui_output:/output
       # Mount ComfyUI custom_nodes directory
       - ./:/data/comfy/custom_nodes/ComfyUI-React-Extension-Template
     stop_signal: SIGKILL
@@ -42,4 +40,3 @@ services:
 
 volumes:
   comfyui_data:
-  comfyui_output:
